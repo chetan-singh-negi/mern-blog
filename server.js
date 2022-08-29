@@ -1,9 +1,9 @@
-const { urlencoded } = require('express');
 const express=require('express');
 const mongoose=require('mongoose');
-conn=mongoose.connect("mongodb://localhost:27017/mernblog");
+const DB="mongodb+srv://chetan:Chetan@9410@cluster0.q8u0hcq.mongodb.net/mernblog?retryWrites=true&w=majority";
+conn=mongoose.connect(DB);
 conn.then(()=>{
-    console.log("you are connected to mongodb");
+    console.log("you are connected to mongodb atlas");
 }).catch(()=>{
     console.log("you are not connect to mongodb");
 })
@@ -40,10 +40,6 @@ app.post('/api/articles/:name/add-comments',async (req,res)=>{
     const result=await article.updateOne({name:x},{$set:{comments:b}});
     res.json(result);
 })
-__dirname=path.resolve();
-if(process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname,'/client/build')));
-}
 app.listen(port,()=>{
     console.log(` i am connected at port number ${port}`);
 })
